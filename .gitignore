@@ -5,6 +5,8 @@
 *gradlew.bat
 *settings.gradle.kts
 
+# VSCode
+**/.vscode
 
 # Local configuration file (sdk path, etc)
 local.properties
