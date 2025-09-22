@@ -1,7 +1,3 @@
-//
-// Created by Kris on 21/09/2025.
-//
-
 #ifndef DRONE_CONTROLLER_UDP_RECEIVER_H
 #define DRONE_CONTROLLER_UDP_RECEIVER_H
 
@@ -11,15 +7,18 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <thread>
+#include <vector>
+#include <cstdint>
 
-class UDP_Reciever {
+class UDP_Receiver {
 public:
-    UDP_Reciever(); // Constructor
-    explicit UDP_Reciever(int _port);
+    UDP_Receiver(); // Constructor
+    explicit UDP_Receiver(int port);
 
-    bool start_UDP_reciever(); // Open socket and connect to server
-    bool close_UDP_reciever(); // Disconnect from server and close socket
+    bool start_UDP_receiver(); // Open socket and connect to server
+    bool close_UDP_receiver(); // Disconnect from server and close socket
 
+    std::vector<uint8_t> receive_packet(); // Receives a UDP packet
 
 protected:
     int sockfd;
@@ -31,6 +30,7 @@ protected:
 
     struct sockaddr_in serveraddr{};
     struct sockaddr_in clientaddr{};
+
 
 
 };

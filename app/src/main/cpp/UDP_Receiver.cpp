@@ -1,18 +1,12 @@
-//
-// Created by Kris on 21/09/2025.
-//
-
 #include "UDP_Receiver.h"
 
 // Constructors
-UDP_Reciever::UDP_Reciever() {}
+UDP_Receiver::UDP_Receiver() : sockfd(-1), port(0), connected(false), len(0) {}
 
-UDP_Reciever::UDP_Reciever(int _port) {
-    port = _port;
-}
+UDP_Receiver::UDP_Receiver(int port): sockfd(-1), port(port), connected(false), len(0) {}
 
-// open socket and connect to server
-bool UDP_Reciever::start_UDP_reciever() {
+// Open socket and connect to server
+bool UDP_Receiver::start_UDP_receiver() {
     if (connected) return true;
 
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
@@ -38,7 +32,8 @@ bool UDP_Reciever::start_UDP_reciever() {
     return true;
 }
 
-bool UDP_Reciever::close_UDP_reciever() {
+// Close socket and stop connection
+bool UDP_Receiver::close_UDP_receiver() {
     if (!connected) return true;
 
     close(sockfd);
@@ -47,4 +42,16 @@ bool UDP_Reciever::close_UDP_reciever() {
     connected = false;
 
     return true;
+}
+
+// Receive UDP packet
+std::vector<uint8_t> UDP_Receiver::receive_packet() {
+    ssize_t n = recvfrom(sockfd, buffer, sizeof(buffer), 0, (struct sockaddr*)&clientaddr, &len);
+
+    if (n>0) {
+        std::vector<uint8_t> packet(buffer, buffer + n);
+        return packet;
+    }
+
+    return {};
 }
