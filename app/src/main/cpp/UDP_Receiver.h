@@ -15,10 +15,10 @@ public:
     UDP_Receiver(); // Constructor
     explicit UDP_Receiver(int port);
 
-    bool start_UDP_receiver(); // Open socket and connect to server
-    bool close_UDP_receiver(); // Disconnect from server and close socket
+    bool start_UDP_receiver(); // Open socket and connect to server.
+    bool close_UDP_receiver(); // Disconnect from server and close socket.
 
-    std::vector<uint8_t> receive_packet(); // Receives a UDP packet
+    std::vector<uint8_t> receive_packet(); // Receives a UDP packet.
 
 protected:
     int sockfd;
